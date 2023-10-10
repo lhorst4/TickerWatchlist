@@ -3,11 +3,14 @@ package com.example.assignment2;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
+
+    private AppViewModel sharedViewModel;
 
     private ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
@@ -27,5 +30,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sharedViewModel = new ViewModelProvider(this).get(AppViewModel.class);
     }
+
+    /*public AppViewModel getSharedViewModel(){
+
+    }*/
 }

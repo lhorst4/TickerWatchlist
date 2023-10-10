@@ -2,8 +2,11 @@ package com.example.assignment2;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +21,8 @@ public class ListViewFragment extends Fragment {
 
     ListView list;
     String[] stocks;
+    private AppViewModel viewModel;
+
     public ListViewFragment() {
         // Required empty public constructor
     }
@@ -38,5 +43,18 @@ public class ListViewFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, stocks);
         list.setAdapter(adapter);
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        viewModel = new ViewModelProvider(this).get(AppViewModel.class);
+        viewModel.getTickers().observe(getViewLifecycleOwner(), new Observer<String[]>(){
+            @Override
+            public void onChanged(String[] tickers){
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, tickers);
+                list.setAdapter(adapter);
+            }
+        });
     }
 }
