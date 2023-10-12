@@ -5,22 +5,35 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.Objects;
 
 
 public class ListViewFragment extends Fragment {
 
     ListView list;
     String[] stocks;
+    MutableLiveData<String> suffix;
+    String suffixstr = "";
+    AdapterView.OnItemClickListener selecter = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            suffixstr = list.getItemAtPosition(i).toString();
+        }
+    };
     private AppViewModel viewModel;
 
     public ListViewFragment() {
@@ -30,7 +43,6 @@ public class ListViewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -42,6 +54,7 @@ public class ListViewFragment extends Fragment {
         list = rootView.findViewById(R.id.listOfStocks);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, stocks);
         list.setAdapter(adapter);
+        list.setOnItemClickListener(selecter);
         return rootView;
     }
 
@@ -49,12 +62,12 @@ public class ListViewFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(AppViewModel.class);
-        viewModel.getTickers().observe(getViewLifecycleOwner(), new Observer<String[]>(){
+        /*viewModel.getTickers().observe(getViewLifecycleOwner(), new Observer<String[]>(){
             @Override
             public void onChanged(String[] tickers){
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, tickers);
                 list.setAdapter(adapter);
             }
-        });
+        });*/
     }
 }

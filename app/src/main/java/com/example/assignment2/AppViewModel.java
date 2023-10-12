@@ -7,10 +7,12 @@ import androidx.lifecycle.ViewModel;
 import java.util.LinkedList;
 public class AppViewModel extends ViewModel {
     MutableLiveData<String[]> tickers;
+    MutableLiveData<String> suffix;
 
     public void setTickers(MutableLiveData<String[]> stocks){
         this.tickers = stocks;
     }
+    public void setSuffix(MutableLiveData<String> str){ this.suffix = str; }
 
     public MutableLiveData<String[]> getTickers(){
         if(tickers == null){
@@ -22,6 +24,14 @@ public class AppViewModel extends ViewModel {
             tickers.setValue(tickArray);
         }
         return tickers;
+    }
+
+    public MutableLiveData<String> getSuffix(){
+        if(suffix == null){
+            suffix = new MutableLiveData<>();
+            suffix.setValue("");
+        }
+        return suffix;
     }
 
     public void addTicker(String tick){
