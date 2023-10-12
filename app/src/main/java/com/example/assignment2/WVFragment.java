@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -18,6 +19,7 @@ public class WVFragment extends Fragment {
 
     WebView webView;
     AppViewModel viewModel;
+    MutableLiveData<String> suffix;
     public WVFragment() {
         // Required empty public constructor
     }
@@ -46,7 +48,11 @@ public class WVFragment extends Fragment {
         viewModel.getTickers().observe(getViewLifecycleOwner(), new Observer<String[]>(){
             @Override
             public void onChanged(String[] tickers){
-                webView.loadUrl("https://seekingalpha.com/symbol/" + tickers[0]);
+                if(suffix != null) {
+                    String url = "https://seekingalpha.com/symbol/" + suffix.getValue().toString();
+                }else{
+                    webView.loadUrl("https://seekingalpha.com/");
+                }
             }
         });
     }

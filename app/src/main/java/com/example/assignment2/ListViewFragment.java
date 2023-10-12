@@ -26,15 +26,17 @@ public class ListViewFragment extends Fragment {
 
     ListView list;
     String[] stocks;
+    private AppViewModel viewModel;
     MutableLiveData<String> suffix;
     String suffixstr = "";
     AdapterView.OnItemClickListener selecter = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             suffixstr = list.getItemAtPosition(i).toString();
+            //suffix.setValue(suffixstr);
+            //viewModel.setSuffix(suffix);
         }
     };
-    private AppViewModel viewModel;
 
     public ListViewFragment() {
         // Required empty public constructor
@@ -55,6 +57,7 @@ public class ListViewFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, stocks);
         list.setAdapter(adapter);
         list.setOnItemClickListener(selecter);
+
         return rootView;
     }
 

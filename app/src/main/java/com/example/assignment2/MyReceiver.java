@@ -26,7 +26,10 @@ public class MyReceiver extends BroadcastReceiver {
                     String sender = currentMessage.getDisplayOriginatingAddress();
                     String message = currentMessage.getDisplayMessageBody();
                     String printMessage = "Sender: " + sender + "\nMessage: " + message;
-                    Log.i("SMS", printMessage);
+                    Intent activityIntent = new Intent(context, MainActivity.class);
+                    activityIntent.putExtra("sms", message);
+                    activityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(activityIntent);
                 }
             }
         }
