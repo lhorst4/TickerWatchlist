@@ -6,8 +6,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +21,7 @@ public class WVFragment extends Fragment {
 
     WebView webView;
     AppViewModel viewModel;
-    public WVFragment() {
+        public WVFragment() {
         // Required empty public constructor
     }
 
@@ -44,16 +46,17 @@ public class WVFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(AppViewModel.class);
-        viewModel.getTickers().observe(getViewLifecycleOwner(), new Observer<String[]>(){
+        Observer<String> observer = new Observer<String>(){
             @Override
-            public void onChanged(String[] tickers){
-                if(viewModel.getSuffix() != null) {
-                    String url = "https://seekingalpha.com/symbol/" +
-                            viewModel.getSuffix().getValue();
-                }else{
+            public void onChanged(@Nullable String suffix){
+                Log.i("Suffix", viewModel.getSuffix().getValue());
+                if(viewModel.getSuffix().getValue().equals("")){
                     webView.loadUrl("https://seekingalpha.com/");
+                }else{
+                    webView.loadUrl("https://seekingalpha.com/symbol/" + suffix);
                 }
             }
-        });
+        };
+        viewModel.getSuffix().observe(getViewLifecycleOwner() , observer);
     }
 }

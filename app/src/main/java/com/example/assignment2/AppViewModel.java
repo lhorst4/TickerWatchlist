@@ -1,5 +1,7 @@
 package com.example.assignment2;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -48,5 +50,6 @@ public class AppViewModel extends ViewModel {
             suffix = new MutableLiveData<>();
         }
         suffix.setValue(suff);
+        Log.i("setSuffix", "is changed to " + suff);
     }
 }
