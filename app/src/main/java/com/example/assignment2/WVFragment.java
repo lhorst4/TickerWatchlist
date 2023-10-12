@@ -19,7 +19,6 @@ public class WVFragment extends Fragment {
 
     WebView webView;
     AppViewModel viewModel;
-    MutableLiveData<String> suffix;
     public WVFragment() {
         // Required empty public constructor
     }
@@ -48,8 +47,9 @@ public class WVFragment extends Fragment {
         viewModel.getTickers().observe(getViewLifecycleOwner(), new Observer<String[]>(){
             @Override
             public void onChanged(String[] tickers){
-                if(suffix != null) {
-                    String url = "https://seekingalpha.com/symbol/" + suffix.getValue().toString();
+                if(viewModel.getSuffix() != null) {
+                    String url = "https://seekingalpha.com/symbol/" +
+                            viewModel.getSuffix().getValue();
                 }else{
                     webView.loadUrl("https://seekingalpha.com/");
                 }

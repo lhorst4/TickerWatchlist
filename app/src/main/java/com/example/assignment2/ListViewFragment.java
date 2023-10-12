@@ -27,14 +27,13 @@ public class ListViewFragment extends Fragment {
     ListView list;
     String[] stocks;
     private AppViewModel viewModel;
-    MutableLiveData<String> suffix;
     String suffixstr = "";
     AdapterView.OnItemClickListener selecter = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             suffixstr = list.getItemAtPosition(i).toString();
-            //suffix.setValue(suffixstr);
-            //viewModel.setSuffix(suffix);
+            Log.i("CLICKED", suffixstr);
+            viewModel.setSuffix(suffixstr);
         }
     };
 

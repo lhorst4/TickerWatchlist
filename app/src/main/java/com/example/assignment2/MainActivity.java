@@ -5,6 +5,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import android.Manifest;
 
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppViewModel sharedViewModel;
     String message;
+    String suffixstr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         message = intent.getStringExtra("sms");
 
-
+        //suffixstr = intent.getStringExtra("suffix");
+        //suffix.setValue(suffixstr);
+        //sharedViewModel.setSuffix(suffix);
 
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED){
             String[] perms = new String[]{Manifest.permission.RECEIVE_SMS};

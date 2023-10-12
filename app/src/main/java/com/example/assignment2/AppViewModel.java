@@ -42,4 +42,11 @@ public class AppViewModel extends ViewModel {
         stocks[0] = tick;
         tickers.setValue(stocks);
     }
+
+    public void setSuffix(String suff){
+        if(suffix == null){
+            suffix = new MutableLiveData<>();
+        }
+        suffix.setValue(suff);
+    }
 }
