@@ -45,7 +45,7 @@ public class WVFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(AppViewModel.class);
+        viewModel = new ViewModelProvider(getActivity()).get(AppViewModel.class);
         Observer<String> observer = new Observer<String>(){
             @Override
             public void onChanged(@Nullable String suffix){

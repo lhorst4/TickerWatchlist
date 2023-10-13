@@ -63,13 +63,14 @@ public class ListViewFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(AppViewModel.class);
+        viewModel = new ViewModelProvider(getActivity()).get(AppViewModel.class);
         /*viewModel.getTickers().observe(getViewLifecycleOwner(), new Observer<String[]>(){
             @Override
             public void onChanged(String[] tickers){
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, tickers);
                 list.setAdapter(adapter);
             }
-        });*/
+        });
+        viewModel.getTickers().observe(getViewLifecycleOwner() , observer);*/
     }
 }
