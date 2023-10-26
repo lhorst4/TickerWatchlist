@@ -28,7 +28,7 @@ public class MyReceiver extends BroadcastReceiver {
                     String printMessage = "Sender: " + sender + "\nMessage: " + message;
                     Intent activityIntent = new Intent(context, MainActivity.class);
                     activityIntent.putExtra("sms", message);
-                    activityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    activityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     context.startActivity(activityIntent);
                 }
             }

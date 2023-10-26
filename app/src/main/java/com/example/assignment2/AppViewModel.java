@@ -1,6 +1,7 @@
 package com.example.assignment2;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -23,6 +24,9 @@ public class AppViewModel extends ViewModel {
             tickArray[0] = "BAC";
             tickArray[1] = "BTC";
             tickArray[2] = "AAPL";
+            tickArray[3] = "";
+            tickArray[4] = "";
+            tickArray[5] = "";
             tickers.setValue(tickArray);
         }
         return tickers;
@@ -37,6 +41,7 @@ public class AppViewModel extends ViewModel {
     }
 
     public void addTicker(String tick){
+        getTickers();
         String[] stocks = tickers.getValue();
         for(int i = 0; i < stocks.length - 1; i++){
             stocks[stocks.length - (i+1)] = stocks[stocks.length - (i+2)];
@@ -45,6 +50,10 @@ public class AppViewModel extends ViewModel {
         tickers.setValue(stocks);
     }
 
+    public String getTop(){
+        String[] stocks = tickers.getValue();
+        return stocks[0];
+    }
     public void setSuffix(String suff){
         if(suffix == null){
             suffix = new MutableLiveData<>();

@@ -32,7 +32,7 @@ public class ListViewFragment extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             suffixstr = list.getItemAtPosition(i).toString();
-            Log.i("CLICKED", suffixstr);
+            // Log.i("CLICKED", suffixstr);
             viewModel.setSuffix(suffixstr);
         }
     };
@@ -50,8 +50,8 @@ public class ListViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_list_view, container, false);
-
-        stocks = getResources().getStringArray(R.array.stocks);
+        viewModel = new ViewModelProvider(getActivity()).get(AppViewModel.class);
+        stocks = viewModel.getTickers().getValue();
         list = rootView.findViewById(R.id.listOfStocks);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, stocks);
         list.setAdapter(adapter);
